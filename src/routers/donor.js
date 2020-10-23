@@ -57,18 +57,36 @@ router.get("/donor-login-page", (req, res) => {
   });
 });
 
-router.post("/donor-login", async (req, res) => {
-  console.log(req.body);
-  const email = req.body.email;
-  const password = req.body.password;
-  const donor = await Donor.findOne({ email, password });
-  if (donor) {
-    req.session.donor = donor;
+router.get("/donor-home", (req, res) => {
+  if (req.session.donor) {
     res.render("donorhome", {
       title: "Donor Home",
     });
   } else {
-    res.render("donorlogin-wrong-creds");
+    res.render("donorlogin", {
+      title: "Donor Login",
+    });
+  }
+});
+
+router.post("/donor-login", async (req, res) => {
+  if (req.session.donor) {
+    res.render("donorhome", {
+      title: "Donor Home",
+    });
+  } else {
+    console.log(req.body);
+    const email = req.body.email;
+    const password = req.body.password;
+    const donor = await Donor.findOne({ email, password });
+    if (donor) {
+      req.session.donor = donor;
+      res.render("donorhome", {
+        title: "Donor Home",
+      });
+    } else {
+      res.render("donorlogin-wrong-creds");
+    }
   }
 });
 

@@ -9,6 +9,7 @@ const landingRouter = require("./routers/index");
 const donorRouter = require("./routers/donor");
 const bloodbankRouter = require("./routers/bloodbank");
 const userRouter = require("./routers/user");
+const managementRouter = require("./routers/management");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(donorRouter);
 app.use(bloodbankRouter);
 app.use(userRouter);
 app.use(landingRouter);
+app.use(managementRouter);
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
