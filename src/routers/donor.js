@@ -1,7 +1,10 @@
 const express = require("express");
 const session = require("express-session");
+const moment = require("moment");
+const { v4: uuidv4 } = require("uuid");
 
 const Donor = require("../models/donor");
+const Donate = require("../models/donate");
 
 const router = new express.Router();
 
@@ -31,7 +34,10 @@ router.post("/donor-signup", async (req, res) => {
       res.render("donorregister-email-exists");
     }
   } else {
-    const newDonor = new Donor(req.body);
+    let donorObj = req.body;
+    donorObj.createdAt = parseInt(moment().format("X"), 10);
+    console.log(donorObj);
+    const newDonor = new Donor(donorObj);
     try {
       await newDonor.save();
       req.session.donor = newDonor;
@@ -40,7 +46,7 @@ router.post("/donor-signup", async (req, res) => {
       });
     } catch (e) {
       console.log(e);
-      res.render("");
+      res.render("server-error");
     }
   }
 });
@@ -66,8 +72,38 @@ router.post("/donor-login", async (req, res) => {
   }
 });
 
-router.post("/donate", (req, res) => {
+router.get("/donate-page", (req, res) => {
+  res.render("donate", {
+    title: "Donate Blood",
+  });
+});
+
+router.post("/donate", async (req, res) => {
   console.log(req.body);
+  if (req.session.donor) {
+    const id = uuidv4();
+    let donateObj = req.body;
+    donateObj.id = id;
+    donateObj.createdAt = parseInt(moment().format("X"), 10);
+    if (donateObj.haveDisease === "Yes") {
+      donateObj.haveDisease = true;
+    } else {
+      donateObj.haveDisease = false;
+    }
+    const newDonate = new Donate(donateObj);
+    try {
+      await newDonate.save();
+      res.render("donorhome", { title: "Donor Home" });
+    } catch (e) {
+      console.log(e);
+      res.render("server-error");
+    }
+  }
+});
+
+router.get("/donor-logout", (req, res) => {
+  req.session.donor = null;
+  res.render("landing_page", { title: "Home" });
 });
 
 module.exports = router;

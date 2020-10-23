@@ -1,9 +1,34 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const donorSchema = mongoose.Schema({
+const donateSchema = mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   createdAt: {
-    type: Date,
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  bloodGroup: {
+    type: String,
     required: true,
     trim: true,
   },
@@ -18,8 +43,8 @@ const donorSchema = mongoose.Schema({
       }
     },
   },
-  name: {
-    type: String,
+  haveDisease: {
+    type: Boolean,
     required: true,
     trim: true,
   },
@@ -33,12 +58,8 @@ const donorSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
 });
 
-const Donor = mongoose.model("donor", donorSchema);
+const Donate = new mongoose.model("donate", donateSchema);
 
-module.exports = Donor;
+module.exports = Donate;

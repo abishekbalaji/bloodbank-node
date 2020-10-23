@@ -1,5 +1,6 @@
 #donorlogin{
-    margin:100px 500px;;
+    width: fit-content;
+    margin: auto;
 }
 #donorimage{
     padding-top: 100px;

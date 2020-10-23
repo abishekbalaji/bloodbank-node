@@ -1,30 +1,29 @@
-
-a{
-    margin-right: 20px;
-    color: white;
-
+a {
+  margin-right: 20px;
+  color: white;
 }
-a:hover{
-    color: sandybrown;
+a:hover {
+  color: sandybrown;
 }
-.dropdown-menu{
-     color: white;
-} 
-.navbar-color{
-    background-color: brown;
-    padding: 5px 50px 2px;
+.dropdown-menu {
+  color: white;
 }
-.dropdown-item{
-    color: brown;
+.navbar-color {
+  background-color: brown;
+  padding: 5px 50px 2px;
 }
-.dropdown-item:hover{
-    background-color: sandybrown;
-    color: white;
+.dropdown-item {
+  color: brown;
 }
-.spacing{
-    margin: 30px 300px;
-    line-height: 2;
+.dropdown-item:hover {
+  background-color: sandybrown;
+  color: white;
 }
-#About{
-    margin-top: 80px;
+.spacing {
+  margin: auto;
+  width: fit-content;
+  line-height: 2;
+}
+#About {
+  margin-top: 80px;
 }
