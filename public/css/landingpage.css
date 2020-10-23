@@ -1,0 +1,30 @@
+
+a{
+    margin-right: 20px;
+    color: white;
+
+}
+a:hover{
+    color: sandybrown;
+}
+.dropdown-menu{
+     color: white;
+} 
+.navbar-color{
+    background-color: brown;
+    padding: 5px 50px 2px;
+}
+.dropdown-item{
+    color: brown;
+}
+.dropdown-item:hover{
+    background-color: sandybrown;
+    color: white;
+}
+.spacing{
+    margin: 30px 300px;
+    line-height: 2;
+}
+#About{
+    margin-top: 80px;
+}
