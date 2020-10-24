@@ -3,7 +3,7 @@ const validator = require("validator");
 
 const donorSchema = mongoose.Schema({
   createdAt: {
-    type: Date,
+    type: String,
     required: true,
     trim: true,
   },

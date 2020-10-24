@@ -4,6 +4,7 @@ const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 
 const Management = require("../models/management");
+const Donate = require("../models/donate");
 
 const router = new express.Router();
 
@@ -32,7 +33,7 @@ router.post("/management-signup", async (req, res) => {
       });
     }
   } else {
-    memberObj.createdAt = parseInt(moment().format("X"), 10);
+    memberObj.createdAt = moment().format();
     const newManagementMember = new Management(memberObj);
     try {
       await newManagementMember.save();
@@ -81,9 +82,35 @@ router.get("/management-home-page", (req, res) => {
   }
 });
 
-router.get("/donor-requests-page", (req, res) => {
+router.get("/donor-requests-page", async (req, res) => {
   if (req.session.member) {
-    res.render("donorrequests", { title: "Donor Requests" });
+    const requests = await Donate.find({});
+    const requestsClean = requests.map((request) => {
+      let haveDisease = "";
+      if (request.haveDisease) {
+        haveDisease = "Yes";
+      } else {
+        haveDisease = "No";
+      }
+      const dateArray = moment(request.createdAt)
+        .format("Do MMM, YYYY-hh:mm A")
+        .split("-");
+      return {
+        name: request.name,
+        age: request.age,
+        weight: request.weight,
+        bloodGroup: request.bloodGroup,
+        haveDisease,
+        phone: request.phone,
+        location: request.location,
+        date: dateArray[0],
+        time: dateArray[1],
+      };
+    });
+    res.render("donorrequests", {
+      title: "Donor Requests",
+      requests: requestsClean,
+    });
   } else {
     res.render("managementlogin", { title: "Management Login" });
   }

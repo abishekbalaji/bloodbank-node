@@ -9,3 +9,14 @@ html {
 .input-error {
   color: red;
 }
+
+th,
+td {
+  padding: 15px;
+}
+
+.donor-requests__table {
+  margin-top: 150px;
+  width: 100%;
+  border: 1px solid black;
+}

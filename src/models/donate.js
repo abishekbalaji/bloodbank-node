@@ -8,7 +8,7 @@ const donateSchema = mongoose.Schema({
     trim: true,
   },
   createdAt: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
   },
@@ -36,7 +36,6 @@ const donateSchema = mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
     validate(value) {
       if (!validator.isEmail(value)) {
         throw new Error("Invalid email!");

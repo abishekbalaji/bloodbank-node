@@ -3,7 +3,7 @@ const validator = require("validator");
 
 const managementSchema = mongoose.Schema({
   createdAt: {
-    type: Date,
+    type: String,
     required: true,
     trim: true,
   },

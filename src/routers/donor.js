@@ -35,7 +35,7 @@ router.post("/donor-signup", async (req, res) => {
     }
   } else {
     let donorObj = req.body;
-    donorObj.createdAt = parseInt(moment().format("X"), 10);
+    donorObj.createdAt = moment().format();
     console.log(donorObj);
     const newDonor = new Donor(donorObj);
     try {
@@ -107,7 +107,7 @@ router.post("/donate", async (req, res) => {
     const id = uuidv4();
     let donateObj = req.body;
     donateObj.id = id;
-    donateObj.createdAt = parseInt(moment().format("X"), 10);
+    donateObj.createdAt = moment().format();
     if (donateObj.haveDisease === "Yes") {
       donateObj.haveDisease = true;
     } else {
