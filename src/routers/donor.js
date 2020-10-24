@@ -46,7 +46,7 @@ router.post("/donor-signup", async (req, res) => {
       });
     } catch (e) {
       console.log(e);
-      res.render("server-error");
+      res.render("server-error", { title: "Server Error" });
     }
   }
 });
@@ -70,23 +70,28 @@ router.get("/donor-home", (req, res) => {
 });
 
 router.post("/donor-login", async (req, res) => {
-  if (req.session.donor) {
-    res.render("donorhome", {
-      title: "Donor Home",
-    });
-  } else {
-    console.log(req.body);
-    const email = req.body.email;
-    const password = req.body.password;
-    const donor = await Donor.findOne({ email, password });
-    if (donor) {
-      req.session.donor = donor;
+  try {
+    if (req.session.donor) {
       res.render("donorhome", {
         title: "Donor Home",
       });
     } else {
-      res.render("donorlogin-wrong-creds");
+      console.log(req.body);
+      const email = req.body.email;
+      const password = req.body.password;
+      const donor = await Donor.findOne({ email, password });
+      if (donor) {
+        req.session.donor = donor;
+        res.render("donorhome", {
+          title: "Donor Home",
+        });
+      } else {
+        res.render("donorlogin-wrong-creds", { title: "Donor Login" });
+      }
     }
+  } catch (e) {
+    console.log(e);
+    res.render("server-error", { title: "Server Error" });
   }
 });
 
@@ -120,8 +125,12 @@ router.post("/donate", async (req, res) => {
 });
 
 router.get("/donor-logout", (req, res) => {
-  req.session.donor = null;
-  res.render("landing_page", { title: "Home" });
+  if (req.session.donor) {
+    req.session.donor = null;
+    res.render("landing_page", { title: "Home" });
+  } else {
+    res.render("donorlogin", { title: "Donor Login" });
+  }
 });
 
 module.exports = router;

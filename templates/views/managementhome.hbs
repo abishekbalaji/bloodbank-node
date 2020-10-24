@@ -1,30 +1,4 @@
-<html>
-
-<head>
-    <title>Management Home</title>
-
-
-    <!--BOOTSTRAP -->
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
-    </script>
-
-    <!-- CSS -->
-
-
-    <link rel="stylesheet" href="css/landingpage.css">
-    <link rel="stylesheet" href="css/managementlogin.css">
-    <link rel="stylesheet" href="css/donorlogin.css">
-
-</head>
-
-<body>
+{{>header}}
     
 <!-- NAVBAR -->
 
@@ -38,22 +12,22 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ml-auto">
                         <li id="nav-space"class="nav-item active">
-                            <a class="nav-link" href="managementhome.html#managementimage">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li  id="nav-space"class="nav-item">
-                            <a class="nav-link" href="managementhome.html#About">About</a>
+                            <a class="nav-link" href="#About">About</a>
                         </li>
                         <li  id="nav-space"class="nav-item">
-                            <a class="nav-link" href="bloodstock.html">Blood Stock</a>
+                            <a class="nav-link" href="/bloodstock">Blood Stock</a>
                         </li>
                         <li  id="nav-space"class="nav-item">
-                            <a class="nav-link" href="donorrequest.html">Donor Request</a>
+                            <a class="nav-link" href="/donor-requests">Donor Request</a>
                         </li>
                         <li  id="nav-space"class="nav-item">
-                            <a class="nav-link" href="notification.html">Notification</a>
+                            <a class="nav-link" href="/notifications">Notification</a>
                         </li>
                         <li  id="nav-space"class="nav-item">
-                            <a class="nav-link" href="landing_page.html">Logout</a>
+                            <a class="nav-link" href="/management-logout">Logout</a>
                         </li>
                         
                
@@ -70,7 +44,6 @@
 
 
           <section id="About" >
-
                     <h1 style="text-align: center;">Eligiblity Criteria To Donate Blood</h1>   <br>             
                     <ul class="spacing">
                    <li>Overall health- The donor must be fit and healthy, and should not be suffering from transmittable diseases.</li> 

@@ -40,8 +40,45 @@ router.post("/management-signup", async (req, res) => {
       res.render("managementhome", { title: "Management Home" });
     } catch (e) {
       console.log(e);
-      res.render("server-error");
+      res.render("server-error", { title: "Server Error" });
     }
+  }
+});
+
+router.get("/management-login-page", (req, res) => {
+  res.render("managementlogin", { title: "Management Login" });
+});
+
+router.post("/management-login", async (req, res) => {
+  try {
+    console.log(req.body);
+    if (req.session.member) {
+      res.render("managementhome", { title: "Management Home" });
+    } else {
+      const email = req.body.email;
+      const password = req.body.password;
+      const managementMember = await Management.findOne({ email, password });
+      if (managementMember) {
+        req.session.member = managementMember;
+        res.render("managementhome", { title: "Management Home" });
+      } else {
+        res.render("managementlogin-wrong-creds", {
+          title: "Management Login",
+        });
+      }
+    }
+  } catch (e) {
+    console.log(e);
+    res.render("server-error", { title: "Server Error" });
+  }
+});
+
+router.get("/management-logout", (req, res) => {
+  if (req.session.member) {
+    req.session.member = null;
+    res.render("landing_page", { title: "Home" });
+  } else {
+    res.render("managementlogin", { title: "Management Login" });
   }
 });
 
