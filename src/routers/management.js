@@ -73,6 +73,38 @@ router.post("/management-login", async (req, res) => {
   }
 });
 
+router.get("/management-home-page", (req, res) => {
+  if (req.session.member) {
+    res.render("managementhome", { title: "Management Home" });
+  } else {
+    res.render("managementlogin", { title: "Management Login" });
+  }
+});
+
+router.get("/donor-requests-page", (req, res) => {
+  if (req.session.member) {
+    res.render("donorrequests", { title: "Donor Requests" });
+  } else {
+    res.render("managementlogin", { title: "Management Login" });
+  }
+});
+
+router.get("/bloodstock-page", (req, res) => {
+  if (req.session.member) {
+    res.render("bloodstock", { title: "Blood Bank" });
+  } else {
+    res.render("managementlogin", { title: "Management Login" });
+  }
+});
+
+router.get("/notifications-page", (req, res) => {
+  if (req.session.member) {
+    res.render("notifications", { title: "Notifications" });
+  } else {
+    res.render("managementlogin", { title: "Management Login" });
+  }
+});
+
 router.get("/management-logout", (req, res) => {
   if (req.session.member) {
     req.session.member = null;
