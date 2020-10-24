@@ -18,6 +18,11 @@ const managementSchema = mongoose.Schema({
       }
     },
   },
+  hospitalType: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   hospitalName: {
     type: String,
     required: true,
