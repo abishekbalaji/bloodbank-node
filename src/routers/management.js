@@ -132,9 +132,17 @@ router.post("/accept-request", async (req, res) => {
   }
 });
 
-router.post("/reject-request", (req, res) => {
-  console.log("hello, rejected");
+router.post("/reject-request", async (req, res) => {
   console.log(req.body);
+  const id = req.body.id;
+  await Donate.deleteOne({id});
+  const requests = await Donate.find({});
+  const requestsClean = generateRequestsClean(requests);
+  res.render("donorrequests", {
+    title: "Donor Requests",
+    requests: requestsClean,
+  });
+  
 });
 
 router.get("/bloodstock-page", async (req, res) => {

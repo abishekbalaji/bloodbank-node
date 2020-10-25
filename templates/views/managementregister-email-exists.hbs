@@ -17,15 +17,15 @@
                     <li id="nav-space" class="nav-item active">
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
-              
+
                     <li id="nav-space" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Register
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/management-registration-page">Management</a>
-                            <a class="dropdown-item" href="#">Donor</a>
+                            <a class="dropdown-item" href="#">Management</a>
+                            <a class="dropdown-item" href="/donor-registration-page">Donor</a>
 
                         </div>
                     </li>
@@ -50,36 +50,44 @@
     <!-- DONOR FORM -->
 
     <section id="donorlogin">
-        <h1 style="text-align: center;color: brown;">Donor Register</h1><br>
-        <form method="POST" action="/donor-signup">
+        <h1 style="text-align: center;color: brown;">Management Register</h1><br>
+        <form method="POST" action="/management-signup">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp" required>
                 <span class="error">Email exists! Sign in to continue.</span>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Name</label>
-                <input name="name" type="text" class="form-control" id="exampleInputName1" required>
+                <input type="radio" id="Govt" name="hospitalType" value="Govt" required>
+                <label for="Govt" class="radio-spacing">Goverment </label>
+                <input type="radio" id="Private" name="hospitalType" value="Private" required>
+                <label for="Private" class="radio-spacing"> Private</label>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Hospital Name</label>
+                <input type="text" name="hospitalName" class="form-control" id="exampleInputHospitalName1" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Admin Name</label>
+                <input type="text" name="adminName" class="form-control" id="exampleInputName1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Phone No</label>
-                <input name="phone" type="tel" class="form-control" pattern="[0-9]{10}" id="exampleInputPhoneno1"
+                <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" id="exampleInputPhoneno1"
                     required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Location</label>
-                <input name="location" type="text" class="form-control" id="exampleInputLocation1" required>
+                <input type="text" name="location" class="form-control" id="exampleInputLocation1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input name="password" id="password" type="password" class="form-control" id="exampleInputPassword1"
-                    required>
+                <input type="password" name="password" class="form-control" id="password" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1"> Confirm Password</label>
-                <input name="confirm_password" type="password" id="confirm_password" class="form-control"
-                    id="exampleInputPassword1" required>
+                <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
                 <span id='message'></span>
             </div>
 
@@ -89,7 +97,6 @@
     </section>
 
     <script src="/js/index.js"></script>
-
 </body>
 
 </html>
