@@ -5,6 +5,9 @@ const { v4: uuidv4 } = require("uuid");
 
 const Management = require("../models/management");
 const Donate = require("../models/donate");
+const Bloodbank = require("../models/bloodbank");
+
+const generateRequestsClean = require("../helpers/generateRequestClean");
 
 const router = new express.Router();
 
@@ -85,28 +88,7 @@ router.get("/management-home-page", (req, res) => {
 router.get("/donor-requests-page", async (req, res) => {
   if (req.session.member) {
     const requests = await Donate.find({});
-    const requestsClean = requests.map((request) => {
-      let haveDisease = "";
-      if (request.haveDisease) {
-        haveDisease = "Yes";
-      } else {
-        haveDisease = "No";
-      }
-      const dateArray = moment(request.createdAt)
-        .format("Do MMM, YYYY-hh:mm A")
-        .split("-");
-      return {
-        name: request.name,
-        age: request.age,
-        weight: request.weight,
-        bloodGroup: request.bloodGroup,
-        haveDisease,
-        phone: request.phone,
-        location: request.location,
-        date: dateArray[0],
-        time: dateArray[1],
-      };
-    });
+    const requestsClean = generateRequestsClean(requests);
     res.render("donorrequests", {
       title: "Donor Requests",
       requests: requestsClean,
@@ -116,11 +98,56 @@ router.get("/donor-requests-page", async (req, res) => {
   }
 });
 
-router.get("/bloodstock-page", (req, res) => {
-  if (req.session.member) {
-    res.render("bloodstock", { title: "Blood Bank" });
-  } else {
-    res.render("managementlogin", { title: "Management Login" });
+router.post("/accept-request", async (req, res) => {
+  try {
+    if (req.session.member) {
+      console.log(req.body);
+      const id = req.body.id;
+      const volume = parseInt(req.body.volume, 10);
+      const donate = await Donate.findOne({ id });
+      if (donate) {
+        const bloodGroup = donate.bloodGroup;
+        const bloodBankEntry = await Bloodbank.findOne({
+          bloodType: bloodGroup,
+        });
+        console.log(bloodBankEntry);
+        bloodBankEntry.volume += volume;
+        await bloodBankEntry.save();
+        await Donate.deleteOne({ id });
+        const requests = await Donate.find({});
+        const requestsClean = generateRequestsClean(requests);
+        res.render("donorrequests", {
+          title: "Donor Requests",
+          requests: requestsClean,
+        });
+      } else {
+        throw new Error("Server Error");
+      }
+    } else {
+      res.render("managementlogin", { title: "Management Login" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.render("server-error", { title: "Server Error" });
+  }
+});
+
+router.post("/reject-request", (req, res) => {
+  console.log("hello, rejected");
+  console.log(req.body);
+});
+
+router.get("/bloodstock-page", async (req, res) => {
+  try {
+    if (req.session.member) {
+      const blood = await Bloodbank.find({});
+      res.render("bloodstock", { title: "Blood Bank", blood });
+    } else {
+      res.render("managementlogin", { title: "Management Login" });
+    }
+  } catch (e) {
+    console.log(e);
+    res.render("server-error", { title: "Server Error" });
   }
 });
 

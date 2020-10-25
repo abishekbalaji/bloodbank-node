@@ -15,8 +15,20 @@ td {
   padding: 15px;
 }
 
+.donor-requests__title {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
 .donor-requests__table {
-  margin-top: 150px;
   width: 100%;
   border: 1px solid black;
+}
+
+.bloodbank__table {
+  border: 1px solid black;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }

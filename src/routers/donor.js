@@ -96,9 +96,11 @@ router.post("/donor-login", async (req, res) => {
 });
 
 router.get("/donate-page", (req, res) => {
-  res.render("donate", {
-    title: "Donate Blood",
-  });
+  if (req.session.donor) {
+    res.render("donate", {
+      title: "Donate Blood",
+    });
+  }
 });
 
 router.post("/donate", async (req, res) => {

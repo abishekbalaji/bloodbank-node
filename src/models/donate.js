@@ -59,6 +59,6 @@ const donateSchema = mongoose.Schema({
   },
 });
 
-const Donate = new mongoose.model("donate", donateSchema);
+const Donate = mongoose.model("donate", donateSchema);
 
 module.exports = Donate;

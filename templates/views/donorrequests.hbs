@@ -37,6 +37,7 @@
 
     </section>
     <section id="donor-requests">
+        <h1 class="donor-requests__title">Donor Requests</h1>
         <table class="donor-requests__table">
             <tr>
                 <th>Name</th>
@@ -52,25 +53,29 @@
                 <th>Volume(in ml)</th>
             </tr>
             {{#each requests}}
-            <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.age}}</td>
-                <td>{{this.weight}}</td>
-                <td>{{this.bloodGroup}}</td>
-                <td>{{this.haveDisease}}</td>
-                <td>{{this.phone}}</td>
-                <td>{{this.location}}</td>
-                <td>{{this.date}}</td>
-                <td>{{this.time}}</td>
-                <td><button class="btn btn-success">Accept</button> <button class="btn btn-danger">Reject</button></td>
-                <td><input name="volume" type="text"/></td>
-            </tr>
+            <form method="POST">
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.age}}</td>
+                    <td>{{this.weight}}</td>
+                    <td>{{this.bloodGroup}}</td>
+                    <td>{{this.haveDisease}}</td>
+                    <td>{{this.phone}}</td>
+                    <td>{{this.location}}</td>
+                    <td>{{this.date}}</td>
+                    <td>{{this.time}}</td>
+                    <td><button formaction="/accept-request" type="submit" class="btn btn-success">Accept</button>
+                        <button formaction="/reject-request" type="submit" class="btn btn-danger">Reject</button></td>
+                    <td><input name="volume" type="number" class="form-control" required placeholder="0 if rejected" />
+                    </td>
+                    <input type="hidden" name="id" value="{{this.id}}" />
+                </tr>
+            </form>
+
             {{/each}}
         </table>
     </section>
-
-
-
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
