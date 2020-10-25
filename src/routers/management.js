@@ -151,11 +151,37 @@ router.get("/bloodstock-page", async (req, res) => {
   }
 });
 
-router.get("/notifications-page", (req, res) => {
+router.get("/request-blood-page", (req, res) => {
   if (req.session.member) {
-    res.render("notifications", { title: "Notifications" });
+    res.render("requestblood", { title: "Request Blood", message: "" });
   } else {
     res.render("managementlogin", { title: "Management Login" });
+  }
+});
+
+router.post("/request-blood", async (req, res) => {
+  try {
+    if (req.session.member) {
+      console.log(req.body);
+      const bloodType = req.body.bloodGroup;
+      const volume = req.body.volume;
+      const blood = await Bloodbank.findOne({ bloodType });
+      if (blood) {
+        blood.volume -= volume;
+        await blood.save();
+        res.render("requestblood", {
+          title: "Request Blood",
+          message: "Request accepted.",
+        });
+      } else {
+        throw new Error("Server Error");
+      }
+    } else {
+      res.render("managementlogin", { title: "Management Login" });
+    }
+  } catch (e) {
+    console.log(e);
+    res.render("server-error");
   }
 });
 
