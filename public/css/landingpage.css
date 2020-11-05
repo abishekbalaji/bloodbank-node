@@ -13,7 +13,7 @@ a:hover {
   padding: 5px 50px 2px;
 }
 .dropdown-item {
-  color: brown;
+  /* color: brown; */
 }
 .dropdown-item:hover {
   background-color: sandybrown;
